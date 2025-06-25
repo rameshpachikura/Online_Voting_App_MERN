@@ -1,0 +1,68 @@
+.admin-container {
+  padding: 30px;
+  font-family: 'Segoe UI', sans-serif;
+  max-width: 900px;
+  margin: auto;
+}
+
+.admin-nav button {
+  margin-right: 10px;
+  margin-bottom: 20px;
+  background-color: #444;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.admin-nav button:hover {
+  background-color: #222;
+}
+
+.create-election,
+.results {
+  margin-bottom: 40px;
+}
+
+.create-election input {
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px;
+}
+
+.create-election button {
+  margin-right: 10px;
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.create-election button:hover {
+  background-color: #125da7;
+}
+
+.election-card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 15px;
+  margin-top: 15px;
+  background-color: #f9f9f9;
+}
+.delete-button {
+  background-color: #d32f2f;
+  color: white;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 5px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.delete-button:hover {
+  background-color: #b71c1c;
+}
