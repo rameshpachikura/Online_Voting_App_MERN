@@ -1,24 +1,32 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import './Auth.css'; // Optional shared styles
+import './Auth.css';
 
 function RegisterPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [aadhar, setAadhar] = useState('');
   const [message, setMessage] = useState('');
 
   const handleRegister = async (e) => {
     e.preventDefault();
 
+    // Optional: Client-side Aadhar validation
+    if (!/^[2-9]{1}[0-9]{11}$/.test(aadhar)) {
+      setMessage('❌ Invalid Aadhar number');
+      return;
+    }
+
     try {
       const res = await axios.post('http://localhost:5000/api/auth/register', {
         username,
         password,
-        role: 'voter' // hardcoded as voter
+        aadhar,
+        role: 'voter'
       });
 
       setMessage(res.data.message);
-      // Redirect to login
+
       setTimeout(() => {
         window.location.href = '/login';
       }, 1500);
@@ -45,6 +53,13 @@ function RegisterPage() {
           required
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="Aadhar Number"
+          required
+          value={aadhar}
+          onChange={(e) => setAadhar(e.target.value)}
         />
         <button type="submit">Register</button>
       </form>

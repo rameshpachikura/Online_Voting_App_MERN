@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './VotePage.css';
 import ResultChart from '../components/ResultChart';
+import Navbar from '../components/Navbar'; // ✅ Navigation with Logout
 
 function VotePage() {
   const [elections, setElections] = useState([]);
@@ -42,7 +43,7 @@ function VotePage() {
       );
       setMessage(res.data.message);
 
-      // Refresh elections to update vote counts after voting
+      // Refresh elections to update vote counts
       const updated = await axios.get('http://localhost:5000/api/vote/elections', {
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -56,6 +57,7 @@ function VotePage() {
 
   return (
     <div className="vote-container">
+      <Navbar /> {/* ✅ Include Navbar here */}
       <h2>🗳️ Elections</h2>
       {message && <p className="message">{message}</p>}
 
@@ -73,8 +75,7 @@ function VotePage() {
               </button>
             </div>
           ))}
-
-          {/* 📊 Display Result Chart */}
+          {/* 📊 Result Chart */}
           <ResultChart election={election} />
         </div>
       ))}

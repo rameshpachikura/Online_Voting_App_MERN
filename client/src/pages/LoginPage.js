@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './Auth.css'; // reuse the same CSS
+import { useNavigate } from 'react-router-dom'; // ✅ Import navigate
 
 function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
+  const navigate = useNavigate(); // ✅ Hook for navigation
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -25,9 +27,9 @@ function LoginPage() {
 
       setTimeout(() => {
         if (userRole === 'admin') {
-          window.location.href = '/admin';
+          navigate('/admin');
         } else {
-          window.location.href = '/vote';
+          navigate('/vote');
         }
       }, 1500);
     } catch (err) {
@@ -37,6 +39,23 @@ function LoginPage() {
 
   return (
     <div className="auth-container">
+      {/* ✅ Home button */}
+      <button
+        onClick={() => navigate('/')}
+        style={{
+          backgroundColor: '#1976d2',
+          color: 'white',
+          border: 'none',
+          padding: '8px 14px',
+          borderRadius: '5px',
+          marginBottom: '15px',
+          fontWeight: 'bold',
+          cursor: 'pointer',
+        }}
+      >
+        🏠 Home
+      </button>
+
       <h2>🔐 Login</h2>
       {message && <p className="message">{message}</p>}
       <form onSubmit={handleLogin}>
@@ -60,4 +79,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default LoginPage;  

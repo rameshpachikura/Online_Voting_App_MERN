@@ -12,8 +12,14 @@ const userSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    enum: ['admin', 'voter'], // ✅ important!
+    enum: ['admin', 'voter'],
     required: true
+  },
+  aadhar: {
+    type: String,
+    required: true,
+    unique: true,
+    match: /^[2-9]{1}[0-9]{11}$/  // ✅ Optional: Aadhar format validation (12 digits)
   }
 });
 
