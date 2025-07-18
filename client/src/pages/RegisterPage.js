@@ -29,7 +29,7 @@ function RegisterPage() {
       setMessage(res.data.message);
 
       setTimeout(() => {
-        window.location.href = '/login';
+        window.location.href = 'https://online-voting-app-mern.onrender.com/login';
       }, 1500);
     } catch (err) {
       setMessage(err.response?.data?.message || '❌ Registration failed');
