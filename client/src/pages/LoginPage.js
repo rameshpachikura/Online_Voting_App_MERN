@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import './Auth.css'; // reuse the same CSS
-import { useNavigate } from 'react-router-dom'; // ✅ Import navigate
+import './Auth.css';
+import { useNavigate } from 'react-router-dom';
+
+const API_BASE_URL = process.env.REACT_APP_API_URL;
 
 function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
-  const navigate = useNavigate(); // ✅ Hook for navigation
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/login', {
+      const res = await axios.post(`${API_BASE_URL}/api/auth/login`, {
         username,
         password,
       });
@@ -39,7 +41,6 @@ function LoginPage() {
 
   return (
     <div className="auth-container">
-      {/* ✅ Home button */}
       <button
         onClick={() => navigate('/')}
         style={{
@@ -79,4 +80,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;  
+export default LoginPage;

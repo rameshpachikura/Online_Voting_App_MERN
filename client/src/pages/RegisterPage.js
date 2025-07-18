@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './Auth.css';
 
+const API = process.env.REACT_APP_API_URL;
+
 function RegisterPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -11,14 +13,13 @@ function RegisterPage() {
   const handleRegister = async (e) => {
     e.preventDefault();
 
-    // Optional: Client-side Aadhar validation
     if (!/^[2-9]{1}[0-9]{11}$/.test(aadhar)) {
       setMessage('❌ Invalid Aadhar number');
       return;
     }
 
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/register', {
+      const res = await axios.post(`${API}/api/auth/register`, {
         username,
         password,
         aadhar,

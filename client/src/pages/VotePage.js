@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './VotePage.css';
 import ResultChart from '../components/ResultChart';
-import Navbar from '../components/Navbar'; // ✅ Navigation with Logout
+import Navbar from '../components/Navbar';
+
+const API = process.env.REACT_APP_API_URL;
 
 function VotePage() {
   const [elections, setElections] = useState([]);
@@ -14,7 +16,7 @@ function VotePage() {
   useEffect(() => {
     const fetchElections = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/vote/elections', {
+        const res = await axios.get(`${API}/api/vote/elections`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -33,7 +35,7 @@ function VotePage() {
   const handleVote = async (electionId, candidateName) => {
     try {
       const res = await axios.post(
-        'http://localhost:5000/api/vote/cast',
+        `${API}/api/vote/cast`,
         { electionId, candidateName },
         {
           headers: {
@@ -43,8 +45,8 @@ function VotePage() {
       );
       setMessage(res.data.message);
 
-      // Refresh elections to update vote counts
-      const updated = await axios.get('http://localhost:5000/api/vote/elections', {
+      // Refresh elections
+      const updated = await axios.get(`${API}/api/vote/elections`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setElections(updated.data);
@@ -57,7 +59,7 @@ function VotePage() {
 
   return (
     <div className="vote-container">
-      <Navbar /> {/* ✅ Include Navbar here */}
+      <Navbar />
       <h2>🗳️ Elections</h2>
       {message && <p className="message">{message}</p>}
 
@@ -75,7 +77,6 @@ function VotePage() {
               </button>
             </div>
           ))}
-          {/* 📊 Result Chart */}
           <ResultChart election={election} />
         </div>
       ))}
