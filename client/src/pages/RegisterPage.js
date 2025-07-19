@@ -29,7 +29,7 @@ function RegisterPage() {
       setMessage(res.data.message);
 
       setTimeout(() => {
-        window.location.href = `${API}/login`;
+        window.location.href = `/login`;
 
       }, 1500);
     } catch (err) {
