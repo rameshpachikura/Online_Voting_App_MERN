@@ -10,22 +10,28 @@ function AdminAuthPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const baseURL = process.env.REACT_APP_API_URL;
     const endpoint = isRegistering
-      ? 'http://localhost:5000/api/admin/register'
-      : 'http://localhost:5000/api/admin/login';
+      ? `${baseURL}/api/admin/register`
+      : `${baseURL}/api/admin/login`;
 
-    const res = await fetch(endpoint, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password }),
-    });
+    try {
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
 
-    const data = await res.json();
-    if (res.ok) {
-      localStorage.setItem('adminToken', data.token);
-      navigate('/dashboard');
-    } else {
-      alert(data.message || (isRegistering ? 'Registration failed' : 'Login failed'));
+      const data = await res.json();
+      if (res.ok) {
+        localStorage.setItem('adminToken', data.token);
+        navigate('/dashboard');
+      } else {
+        alert(data.message || (isRegistering ? 'Registration failed' : 'Login failed'));
+      }
+    } catch (error) {
+      alert('An error occurred. Please try again later.');
+      console.error('Error:', error);
     }
   };
 
@@ -95,7 +101,9 @@ function AdminAuthPage() {
           placeholder="Password"
           required
         />
-        <button type="submit">{isRegistering ? 'Register' : 'Login'}</button>
+        <button type="submit">
+          {isRegistering ? 'Register' : 'Login'}
+        </button>
 
         <button
           type="button"

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
+const API = process.env.REACT_APP_API_URL;
+
 const DeleteElection = () => {
   const [elections, setElections] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -11,7 +13,7 @@ const DeleteElection = () => {
   // Fetch all elections
   const fetchElections = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/admin/elections', {
+      const res = await axios.get(`${API}/api/admin/elections`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -29,7 +31,7 @@ const DeleteElection = () => {
     if (!confirmDelete) return;
 
     try {
-      await axios.delete(`http://localhost:5000/api/admin/delete-election/${id}`, {
+      await axios.delete(`${API}/api/admin/delete-election/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       alert("Election deleted!");
@@ -47,7 +49,7 @@ const DeleteElection = () => {
   if (loading) return <div>Loading elections...</div>;
 
   return (
-    <div style={{ padding: '20px' }}>
+    <div style={{ padding: '20px', maxWidth: '700px', margin: '0 auto' }}>
       <button 
         onClick={() => navigate('/dashboard')} 
         style={{ 
@@ -67,13 +69,26 @@ const DeleteElection = () => {
       {elections.length === 0 ? (
         <p>No elections found.</p>
       ) : (
-        <ul>
+        <ul style={{ listStyleType: 'none', padding: 0 }}>
           {elections.map((election) => (
-            <li key={election._id} style={{ marginBottom: '10px' }}>
-              <strong>{election.title}</strong> - {election.description}
+            <li 
+              key={election._id} 
+              style={{ 
+                marginBottom: '12px', 
+                padding: '10px', 
+                border: '1px solid #ccc', 
+                borderRadius: '6px', 
+                display: 'flex', 
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                backgroundColor: '#f9f9f9'
+              }}
+            >
+              <div>
+                <strong>{election.title}</strong> - {election.description}
+              </div>
               <button
                 style={{ 
-                  marginLeft: '10px', 
                   color: 'white', 
                   background: 'red', 
                   border: 'none', 

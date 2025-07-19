@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-
+const API_BASE_URL = process.env.REACT_APP_API_URL;
 const AdminRegister = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -10,7 +10,7 @@ const AdminRegister = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000/api/admin/create-admin', {
+      const res = await axios.post(`${API_BASE_URL}/api/admin/create-admin`, {
         email,
         password,
       });

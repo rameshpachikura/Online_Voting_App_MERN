@@ -13,6 +13,9 @@ import { useNavigate } from 'react-router-dom';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend, Title);
 
+// Use environment variable for API base URL
+const API = process.env.REACT_APP_API_URL;
+
 function ResultChart({ election }) {
   const labels = election.candidates.map(c => c.name);
   const votes = election.candidates.map(c => c.votes);
@@ -93,7 +96,7 @@ function ViewResults() {
 
   useEffect(() => {
     const token = localStorage.getItem('adminToken');
-    fetch('http://localhost:5000/api/vote/results', {
+    fetch(`${API}/api/vote/results`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -106,7 +109,7 @@ function ViewResults() {
   return (
     <div style={styles.container}>
       <h2 style={styles.title}>Election Results</h2>
-      
+
       <button style={styles.backButton} onClick={() => navigate('/dashboard')}>
         ← Back to Dashboard
       </button>
