@@ -29,7 +29,8 @@ function RegisterPage() {
       setMessage(res.data.message);
 
       setTimeout(() => {
-        window.location.href = '${API}/api/auth/login';
+        window.location.href = `${API}/login`;
+
       }, 1500);
     } catch (err) {
       setMessage(err.response?.data?.message || '❌ Registration failed');
