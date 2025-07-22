@@ -14,10 +14,10 @@ function Navbar() {
 
   return (
     <nav className="navbar">
-      <div className="nav-left">
+      {/* <div className="nav-left">
         <button onClick={() => navigate('/')}>🏠 Home</button>
         <button onClick={() => navigate('/vote')}>🗳️ Vote</button>
-      </div>
+      </div> */}
       {token && (
         <div className="nav-right">
           <button className="logout-btn" onClick={handleLogout}>

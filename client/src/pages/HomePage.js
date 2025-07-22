@@ -5,6 +5,8 @@ function HomePage() {
   const navigate = useNavigate();
 
   return (
+ 
+    
     <div style={{ textAlign: 'center', marginTop: '80px' }}>
       <h1>🗳️ Welcome to Online Voting App</h1>
       <button onClick={() => navigate('/login')} style={{ margin: '10px' }}>
@@ -14,6 +16,7 @@ function HomePage() {
         Register
       </button>
     </div>
+    
   );
 }
 
